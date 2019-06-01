@@ -21,18 +21,18 @@
 </style>
 
 <!-- Header -->
-<header class="w3-container w3-theme w3-padding" id="header">
-  <div class="grid-container" id="headerContent">
-    <div class="grid-item" id="headerContentLogo"> <img src="https://avatars2.githubusercontent.com/u/13955966?s=200&v=4"> </div>
-    <div class="grid-item" id="headerContentName"> <font color="black"> <h1> UBCSE Peer Evaluation </h1> </font> </div>
+<header id="header" class="w3-container w3-theme w3-padding">
+  <div id="headerContent" class="grid-container">
+    <div id="headerContentLogo" class="grid-item"> <img src="https://avatars2.githubusercontent.com/u/13955966?s=200&v=4"> </div>
+    <div id="headerContentName" class="grid-item"> <font color="black"> <h1> UBCSE Peer Evaluation </h1> </font> </div>
   </div>
 </header>
 
 <hr>
-<div class="w3-center" id="classDrop">
-  <div class="w3-dropdown-hover" id="classDropButton">
+<div id="classDrop" class="w3-center">
+  <div id="classDropButton" class="w3-dropdown-hover">
     <button class="w3-button w3-theme">Select Your Class <i class="fa fa-caret-down"></i></button>
-    <div class="w3-dropdown-content w3-bar-block w3-border" id="classDropButtonSelector">
+    <div id="classDropButtonSelector" class="w3-dropdown-content w3-bar-block w3-border">
       <a href="#" class="w3-bar-item w3-button">Link 1</a>
       <a href="#" class="w3-bar-item w3-button">Link 2</a>
       <a href="#" class="w3-bar-item w3-button">Link 3</a>
@@ -43,24 +43,24 @@
 
 <hr>
 
-<div class="w3-row-padding w3-center w3-padding" id="login">
+<div id="login" class="w3-row-padding w3-center w3-padding">
 
-  <form class="w3-container w3-card-4 w3-light-blue" id="loginEmail">
+  <form id="loginEmail" class="w3-container w3-card-4 w3-light-blue">
     <h2>Please type in your UB email address! You'll then receive a verification code you can type in further down the page.</h2>
-    <div class="w3-section" id="loginEmailEntry">
-      <input class="w3-input w3-light-grey" type="text" required id="loginEmailEntryText">
-      <button class="w3-center w3-button w3-theme" id="loginEmailEntryButton">Get Verification Code</button>
+    <div id="loginEmailEntry" class="w3-section">
+      <input id="loginEmailEntryText" class="w3-input w3-light-grey" type="text" required>
+      <button id="loginEmailEntryButton" class="w3-center w3-button w3-theme">Get Verification Code</button>
     </div>
   </form>
 
   <hr>
 
 
-  <form class="w3-container w3-card-4 w3-light-blue" id="loginCode">
+  <form id="loginCode" class="w3-container w3-card-4 w3-light-blue">
     <h2>Enter your verification code below, then click submit to see the peer evaluation form.</h2>
-    <div class="w3-section" id=loginCodeEntry>
-      <input class="w3-input w3-light-grey" type="text" required id="loginCodeEntryText">
-      <button class="w3-center w3-button w3-theme" id="loginCodeEntryButton">Submit!</button>
+    <div id=loginCodeEntry class="w3-section">
+      <input id="loginCodeEntryText" class="w3-input w3-light-grey" type="text" required>
+      <button id="loginCodeEntryButton" class="w3-center w3-button w3-theme">Submit!</button>
     </div>
   </form>
 
@@ -69,7 +69,7 @@
 </div>
 
 <!-- Footer -->
-<footer class="w3-container w3-theme-dark w3-padding-16" id="footer">
+<footer id="footer" class="w3-container w3-theme-dark w3-padding-16">
   <h3>Acknowledgements</h3>
   <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
   <p> <a  class=" w3-theme-light" target="_blank"></a></p>
