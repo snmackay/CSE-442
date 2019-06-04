@@ -48,14 +48,20 @@
 
 <div id="login" class="w3-row-padding w3-center w3-padding">
 
-  <form id="loginEmail" class="w3-container w3-card-4 w3-light-blue">
+  <form id="loginEmail" class="w3-container w3-card-4 w3-light-blue" method='post'>
     <h2>Please type in your UB email address! You'll then receive a verification code you can type in further down the page.</h2>
     <div id="loginEmailEntry" class="w3-section">
-      <input id="loginEmailEntryText" class="w3-input w3-light-grey" type="text" required>
-      <button id="loginEmailEntryButton" class="w3-center w3-button w3-theme">Get Verification Code</button>
+      <input placeholder="UB email" name ='loginEmailEntryText' id="loginEmailEntryText" class="w3-input w3-light-grey" type="text" required>
+      <input type='submit' id="loginEmailEntryButton" class="w3-center w3-button w3-theme" value='Get Verification Code'></input>
     </div>
   </form>
 
+  <?php
+if( isset($_POST['loginEmailEntryText']) && !empty($_POST['loginEmailEntryText'])){
+	$email = $_POST['loginEmailEntryText'];
+	mail($email,"Access Code","Your code is: 4567890","FROM: jeh24@buffalo.edu");
+}
+?>
   <hr>
 
 <!--
