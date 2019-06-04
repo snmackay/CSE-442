@@ -28,6 +28,9 @@
   </div>
 </header>
 
+
+
+<!--
 <hr>
 <div id="classDrop" class="w3-center">
   <div id="classDropButton" class="w3-dropdown-hover">
@@ -39,7 +42,7 @@
     </div>
   </div>
 </div>
-
+-->
 
 <hr>
 
@@ -55,7 +58,7 @@
 
   <hr>
 
-
+<!--
   <form id="loginCode" class="w3-container w3-card-4 w3-light-blue">
     <h2>Enter your verification code below, then click submit to see the peer evaluation form.</h2>
     <div id=loginCodeEntry class="w3-section">
@@ -64,7 +67,7 @@
     </div>
   </form>
 
-
+-->
 
 </div>
 
