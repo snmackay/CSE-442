@@ -51,7 +51,7 @@
   <form id="loginEmail" class="w3-container w3-card-4 w3-light-blue" method='post'>
     <h2>Please type in your UB email address! You'll then receive a verification code you can type in further down the page.</h2>
     <div id="loginEmailEntry" class="w3-section">
-      <input placeholder="UB email" name ='loginEmailEntryText' id="loginEmailEntryText" class="w3-input w3-light-grey" type="email" required>
+      <input placeholder="UB email" name ='loginEmailEntryText' id="loginEmailEntryText" class="w3-input w3-light-grey" type="email" pattern="^[a-zA-Z0-9]+@buffalo.edu$" required>
       <input type='submit' id="loginEmailEntryButton" class="w3-center w3-button w3-theme" value='Get Verification Code'></input>
     </div>
   </form>
