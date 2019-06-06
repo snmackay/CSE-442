@@ -43,6 +43,9 @@ hr {
       <input placeholder="ubitname@buffalo.edu" name ='loginEmailEntryText' id="loginEmailEntryText" class="w3-input w3-light-grey" type="email" pattern="^[a-zA-Z0-9]+@buffalo.edu$" required>
       <hr>
       <input type='submit' id="loginEmailEntryButton" class="w3-center w3-button w3-theme" value='Get Verification Code'></input>
+      <hr>
+      <input type='button' onclick="window.location.href = '**URL**';" class="w3-center w3-button w3-theme" value="Already have valid code?"/></input>
+      <hr>
     </div>
   </form>
 
