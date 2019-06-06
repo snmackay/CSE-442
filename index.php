@@ -18,6 +18,11 @@
   background-color: #2196F3;
   padding: 10px;
 }
+hr {
+    clear: both;
+    visibility: hidden;
+}
+
 </style>
 
 <!-- Header -->
@@ -27,19 +32,6 @@
 
 
 
-<!--
-<hr>
-<div id="classDrop" class="w3-center">
-  <div id="classDropButton" class="w3-dropdown-hover">
-    <button class="w3-button w3-theme">Select Your Class <i class="fa fa-caret-down"></i></button>
-    <div id="classDropButtonSelector" class="w3-dropdown-content w3-bar-block w3-border">
-      <a href="#" class="w3-bar-item w3-button">Link 1</a>
-      <a href="#" class="w3-bar-item w3-button">Link 2</a>
-      <a href="#" class="w3-bar-item w3-button">Link 3</a>
-    </div>
-  </div>
-</div>
--->
 
 <hr>
 
@@ -49,6 +41,7 @@
     <h2>Please type in your UB email address! You'll then receive a verification code you can type in further down the page.</h2>
     <div id="loginEmailEntry" class="w3-section">
       <input placeholder="ubitname@buffalo.edu" name ='loginEmailEntryText' id="loginEmailEntryText" class="w3-input w3-light-grey" type="email" pattern="^[a-zA-Z0-9]+@buffalo.edu$" required>
+      <hr>
       <input type='submit' id="loginEmailEntryButton" class="w3-center w3-button w3-theme" value='Get Verification Code'></input>
     </div>
   </form>
@@ -61,16 +54,6 @@ if( isset($_POST['loginEmailEntryText']) && !empty($_POST['loginEmailEntryText']
 ?>
   <hr>
 
-<!--
-  <form id="loginCode" class="w3-container w3-card-4 w3-light-blue">
-    <h2>Enter your verification code below, then click submit to see the peer evaluation form.</h2>
-    <div id=loginCodeEntry class="w3-section">
-      <input id="loginCodeEntryText" class="w3-input w3-light-grey" type="text" required>
-      <button id="loginCodeEntryButton" class="w3-center w3-button w3-theme">Submit!</button>
-    </div>
-  </form>
-
--->
 
 </div>
 
