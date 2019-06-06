@@ -22,10 +22,7 @@
 
 <!-- Header -->
 <header id="header" class="w3-container w3-theme w3-padding">
-  <div id="headerContent" class="grid-container">
-    <div id="headerContentLogo" class="grid-item"> <img src="https://avatars2.githubusercontent.com/u/13955966?s=200&v=4"> </div>
-    <div id="headerContentName" class="grid-item"> <font color="black"> <h1> UBCSE Peer Evaluation </h1> </font> </div>
-  </div>
+    <div id="headerContentName"  <font color="black"> <h1> UBCSE Peer Evaluation </h1> </font> </div>
 </header>
 
 
