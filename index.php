@@ -49,7 +49,7 @@ hr {
   <?php
 if( isset($_POST['loginEmailEntryText']) && !empty($_POST['loginEmailEntryText'])){
 	$email = $_POST['loginEmailEntryText'];
-	mail($email,"Access Code","Your code is: 4567890","FROM: jeh24@buffalo.edu");
+	mail($email,"Access Code","Your code is: 4567890");
 }
 ?>
   <hr>
