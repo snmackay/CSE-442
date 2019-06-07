@@ -37,7 +37,7 @@ hr {
       <hr>
       <input type='submit' id="accessCodeEntryButton" class="w3-center w3-button w3-theme" value='Access Peer Evaluation'></input>
       <h2>If your code is older than 15 minutes, click here to get a new one.</h2>
-      <input type='button' onclick="window.location.href = '**URL**';" class="w3-center w3-button w3-theme" value="Dont have a valid code?"/></input>
+      <input type='button' onclick="window.location.href = 'index.php';" class="w3-center w3-button w3-theme" value="Dont have a valid code?"/></input>
       <hr>
     </div>
   </form>

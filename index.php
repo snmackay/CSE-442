@@ -44,7 +44,7 @@ hr {
       <hr>
       <input type='submit' id="loginEmailEntryButton" class="w3-center w3-button w3-theme" value='Get Verification Code'></input>
       <hr>
-      <input type='button' onclick="window.location.href = '**URL**';" class="w3-center w3-button w3-theme" value="Already have valid code?"/></input>
+      <input type='button' onclick="window.location.href = 'accessCodePage.php';" class="w3-center w3-button w3-theme" value="Already have valid code?"/></input>
       <hr>
     </div>
   </form>
@@ -53,6 +53,9 @@ hr {
 if( isset($_POST['loginEmailEntryText']) && !empty($_POST['loginEmailEntryText'])){
 	$email = $_POST['loginEmailEntryText'];
 	mail($email,"Access Code","Your code is: 4567890");
+  /*This should redirect the page JUSTIN, tell me if this is right */
+  header("Location: http://www.youtube.com"); /* Redirect browser to a test link*/
+  exit();
 }
 ?>
   <hr>
