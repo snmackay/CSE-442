@@ -35,17 +35,14 @@ hr {
     <div id="loginEmailEntry" class="w3-section w3-center ">
       <input placeholder="access code here" name ='accessCodeEntryText' id="accessCodeEntryText" class="w3-input w3-light-grey" type="email" pattern="^[a-zA-Z0-9]$" required>
       <hr>
-      <input type='submit' id="accessCodeEntryButton" class="w3-center w3-button w3-theme" value='Access Peer Evaluation'></input>
+      <input type='submit' id="accessCodeEntryButton" class="w3-center w3-button w3-theme-dark" value='Access Peer Evaluation'></input>
       <h2>If your code is older than 15 minutes, click here to get a new one.</h2>
-      <input type='button' onclick="window.location.href = 'index.php';" class="w3-center w3-button w3-theme" value="Dont have a valid code?"/></input>
+      <input type='button' onclick="window.location.href = 'index.php';" class="w3-center w3-button w3-theme-dark" value="Dont have a valid code?"/></input>
       <hr>
     </div>
   </form>
 
   <?php
-if( isset($_POST['loginEmailEntryText']) && !empty($_POST['loginEmailEntryText'])){
-	$email = $_POST['loginEmailEntryText'];
-	mail($email,"Access Code","Your code is: 4567890");
 }
 ?>
   <hr>

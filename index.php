@@ -54,7 +54,7 @@ if( isset($_POST['loginEmailEntryText']) && !empty($_POST['loginEmailEntryText']
 	$email = $_POST['loginEmailEntryText'];
 	mail($email,"Access Code","Your code is: 4567890");
   /*This should redirect the page JUSTIN, tell me if this is right */
-  header("Location: http://www.youtube.com"); /* Redirect browser to a test link*/
+  header("Location: /emailConfirmation.php"); /* Redirect browser to a test link*/
   exit();
 }
 ?>
