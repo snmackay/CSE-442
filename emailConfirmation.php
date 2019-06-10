@@ -12,6 +12,18 @@
 <header id="header" class="w3-container w3-theme w3-padding">
     <div id="headerContentName"  <font class="w3-center w3-theme"> <h1> An email containing the code has been sent to the UB email you typed in. </h1> </font> </div>
 </header>
+<hr>
+
+<div id="continue" class="w3-row-padding w3-center w3-padding">
+
+
+      <input type='button' onclick="window.location.href = 'accessCodePage.php';" class="w3-center w3-button w3-theme" value="Continue"/></input>
+    </div>
+
+
+
+
+
 
 </body>
 </html>
