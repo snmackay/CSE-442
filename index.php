@@ -74,7 +74,7 @@ if(isset($_POST['loginEmailEntryText']) && !empty($_POST['loginEmailEntryText'])
         $email = $_POST['loginEmailEntryText'];
         $code = random_string(10);
         mail($email,"Access Code", "Your code is: " .$code);
-        header("Location: /emailConfirmation.php"); /* Redirect browser to a test link*/
+        header("Location: emailConfirmation.php"); /* Redirect browser to a test link*/
   exit();
 
 }
