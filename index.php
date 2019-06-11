@@ -94,8 +94,6 @@ if(isset($_POST['loginEmailEntryText']) && !empty($_POST['loginEmailEntryText'])
 	mail($email,"Access Code", "Your code is: " .$code);
         header("Location: emailConfirmation.php"); /* Redirect browser to a test link*/
   exit();
-}
-
 ?>
   <hr>
 
