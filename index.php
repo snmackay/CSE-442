@@ -72,26 +72,26 @@ if ( mysqli_connect_errno() ) {
  }
 if(isset($_POST['loginEmailEntryText']) && !empty($_POST['loginEmailEntryText']) ){
     $email = $_POST['loginEmailEntryText'];
-  	$expiration_time = time()+ 60 * 15;
-  	//update passcode and timestamp
-  	$stmt = $con->prepare('UPDATE student_login SET expiration_time =? WHERE email=?');
-  	$stmt->bind_param('is', $expiration_time, $email);
-  	$stmt->execute();
-  	if($stmt->affected_rows == 0){
+    $expiration_time = time()+ 60 * 15;
+    //update passcode and timestamp
+    $stmt = $con->prepare('UPDATE student_login SET expiration_time =? WHERE email=?');
+    $stmt->bind_param('is', $expiration_time, $email);
+    $stmt->execute();
+    if($stmt->affected_rows == 0){
       $stmt = $con->prepare('INSERT INTO student_login (email,expiration_time) VALUES(?,?)');
       $stmt->bind_param('si', $email, $expiration_time);
       $stmt->execute();
     }
-  	$codeFree = false;
-  	//if password is taken try until it's not taken
-  	while(!$codeFree){
-  		$code = random_string(10);
-  		$stmt = $con->prepare('UPDATE student_login SET password =? WHERE email=?');
-  		$stmt->bind_param('ss', $code, $email);
-  		$codeFree = $stmt->execute();
-  	}
-	}
-	mail($email,"Access Code", "Your code is: " .$code);
+    $codeFree = false;
+    //if password is taken try until it's not taken
+    while(!$codeFree){
+      $code = random_string(10);
+      $stmt = $con->prepare('UPDATE student_login SET password =? WHERE email=?');
+      $stmt->bind_param('ss', $code, $email);
+      $codeFree = $stmt->execute();
+    }
+  }
+  mail($email,"Access Code", "Your code is: " .$code);
         header("Location: emailConfirmation.php"); /* Redirect browser to a test link*/
   exit();
 ?>
