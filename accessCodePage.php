@@ -69,20 +69,27 @@ if(isset($_POST['accessCodeEntryText']) && !empty($_POST['accessCodeEntryText'])
 	$stmt->store_result();
 	if($stmt->num_rows == 0){
 		echo "Check that you have typed in your code correctly or get a new code";
+		$stmt->close();
 		exit();
 	}
 
-	$stmt = $con->prepare('SELECT id, email FROM student_login WHERE password=? AND expiration_time < ?');
+	$stmt = $con->prepare('SELECT id, email FROM student_login WHERE password=? AND expiration_time > ?');
 	$time = time();
 	$stmt->bind_param('si',$code,$time);
 	$stmt->execute();
 	$stmt->store_result();
 	if($stmt->num_rows == 0){
 		echo "Your access code has expired. Please get a new code.";
+		$stmt->close();
 		exit();
 	}
 	$stmt->bind_result($id,$email);
-	echo $email;
+	$stmt->fetch();
+	session_regenerate_id();
+	$_SESSION['loggedin'] = TRUE;
+	$_SESSION['email'] = $email;
+	$_SESSION['id'] = $id;
+	$stmt->close();
 	exit();
 }
 
