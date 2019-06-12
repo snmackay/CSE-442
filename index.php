@@ -90,10 +90,10 @@ if(isset($_POST['loginEmailEntryText']) && !empty($_POST['loginEmailEntryText'])
       $stmt->bind_param('ss', $code, $email);
       $codeFree = $stmt->execute();
     }
-  }
   mail($email,"Access Code", "Your code is: " .$code);
         header("Location: emailConfirmation.php"); /* Redirect browser to a test link*/
   exit();
+}
 ?>
   <hr>
 
