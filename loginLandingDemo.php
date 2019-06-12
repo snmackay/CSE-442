@@ -7,7 +7,12 @@
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
 <body>
-<?php session_start(); ?>
+<?php session_start();
+  if(!isset($_SESSION['id'])) {
+    header("Location: https://www-student.cse.buffalo.edu/CSE442-542/2019-Summer/cse-442e/index.php");
+  }
+
+?>
 
 <style>
 .grid-container {
