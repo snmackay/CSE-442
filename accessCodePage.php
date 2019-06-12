@@ -32,8 +32,8 @@ hr {
 
   <form id="loginEmail" class="w3-container w3-card-4 w3-light-green" method='post'>
     <h2>Please type in the access code that has been sent to your UB email. You'll then be redirected to the peer evaluation form.</h2>
-    <div id="loginEmailEntry" class="w3-section w3-center ">
-      <input placeholder="access code here" name ='accessCodeEntryText' id="accessCodeEntryText" class="w3-input w3-light-grey" type="email" pattern="^[a-zA-Z0-9]$" required>
+    <div id="codeEntry" class="w3-section w3-center ">
+      <input placeholder="access code here" name ='accessCodeEntryText' id="accessCodeEntryText" class="w3-input w3-light-grey" type="text" pattern="^[a-zA-Z0-9]$" required>
       <hr>
       <input type='submit' id="accessCodeEntryButton" class="w3-center w3-button w3-theme-dark" value='Access Peer Evaluation'></input>
       <h2>If your code is older than 15 minutes, click here to get a new one.</h2>
