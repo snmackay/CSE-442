@@ -27,7 +27,7 @@ hr {
 
 <!-- Header -->
 <header id="header" class="w3-container w3-theme w3-padding">
-    <div id="headerContentName"  <font color="black"> <h1> <?php echo $_SESSION['email']. 'has been logged in!' ?></h1> </font> </div>
+    <div id="headerContentName"  <font color="black"> <h1> <?php echo $_SESSION['email']. ' has been logged in!' ?></h1> </font> </div>
 </header>
 
 
