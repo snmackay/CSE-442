@@ -65,20 +65,35 @@ $DATABASE_USER = 'jeh24';
 $DATABASE_PASS = '50172309';
 $DATABASE_NAME = 'cse442_542_2019_summer_teame_db';
  // Try and connect using the info above.
-//$con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
-//if ( mysqli_connect_errno() ) {
-//        // If there is an error with the connection, stop the script and display the error.
-//        die ('Failed to connect to MySQL: ' . mysqli_connect_error());
-// }
+$con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+if ( mysqli_connect_errno() ) {
+        // If there is an error with the connection, stop the script and display the error.
+        die ('Failed to connect to MySQL: ' . mysqli_connect_error());
+ }
 if(isset($_POST['loginEmailEntryText']) && !empty($_POST['loginEmailEntryText']) ){
-        $email = $_POST['loginEmailEntryText'];
-        $code = random_string(10);
-        mail($email,"Access Code", "Your code is: " .$code);
-        header("Location: /emailConfirmation.php"); /* Redirect browser to a test link*/
+    $email = $_POST['loginEmailEntryText'];
+    $expiration_time = time()+ 60 * 15;
+    //update passcode and timestamp
+    $stmt = $con->prepare('UPDATE student_login SET expiration_time =? WHERE email=?');
+    $stmt->bind_param('is', $expiration_time, $email);
+    $stmt->execute();
+    if($stmt->affected_rows == 0){
+      $stmt = $con->prepare('INSERT INTO student_login (email,expiration_time) VALUES(?,?)');
+      $stmt->bind_param('si', $email, $expiration_time);
+      $stmt->execute();
+    }
+    $codeFree = false;
+    //if password is taken try until it's not taken
+    while(!$codeFree){
+      $code = random_string(10);
+      $stmt = $con->prepare('UPDATE student_login SET password =? WHERE email=?');
+      $stmt->bind_param('ss', $code, $email);
+      $codeFree = $stmt->execute();
+    }
+  mail($email,"Access Code", "Your code is: " .$code);
+        header("Location: emailConfirmation.php"); /* Redirect browser to a test link*/
   exit();
-
 }
-
 ?>
   <hr>
 
