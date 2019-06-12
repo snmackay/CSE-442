@@ -10,8 +10,8 @@
 <?php session_start();
   if(!isset($_SESSION['id'])) {
     header("Location: https://www-student.cse.buffalo.edu/CSE442-542/2019-Summer/cse-442e/index.php");
+    exit();
   }
-
 ?>
 
 <style>
