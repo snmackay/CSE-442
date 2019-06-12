@@ -33,7 +33,7 @@ hr {
   <form id="loginEmail" class="w3-container w3-card-4 w3-light-green" method='post'>
     <h2>Please type in the access code that has been sent to your UB email. You'll then be redirected to the peer evaluation form.</h2>
     <div id="codeEntry" class="w3-section w3-center ">
-      <input placeholder="access code here" name ='accessCodeEntryText' id="accessCodeEntryText" class="w3-input w3-light-grey" type="text" pattern="^[a-zA-Z0-9]$" required>
+      <input placeholder="access code here" name ='accessCodeEntryText' id="accessCodeEntryText" class="w3-input w3-light-grey" type="text" pattern="^[a-zA-Z0-9]*$" required>
       <hr>
       <input type='submit' id="accessCodeEntryButton" class="w3-center w3-button w3-theme-dark" value='Access Peer Evaluation'></input>
       <h2>If your code is older than 15 minutes, click here to get a new one.</h2>
@@ -48,6 +48,44 @@ error_reporting(-1); // reports all errors
 ini_set("display_errors", "1"); // shows all errors
 ini_set("log_errors", 1);
 ini_set("error_log", "~/php-error.log");
+
+$DATABASE_HOST = 'tethys.cse.buffalo.edu';
+$DATABASE_USER = 'jeh24';
+$DATABASE_PASS = '50172309';
+$DATABASE_NAME = 'cse442_542_2019_summer_teame_db';
+
+$con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+
+if ( mysqli_connect_errno() ) {
+	// If there is an error with the connection, stop the script and display the error.
+ 	die ('Failed to connect to MySQL: ' . mysqli_connect_error());
+ 	}
+
+if(isset($_POST['accessCodeEntryText']) && !empty($_POST['accessCodeEntryText'])){
+	$code = $_POST['accessCodeEntryText'];
+	$stmt= $con->prepare('SELECT * FROM student_login WHERE password=?');
+	$stmt->bind_param('s',$code);
+	$stmt->execute();
+	$stmt->store_result();
+	if($stmt->num_rows == 0){
+		echo "Check that you have typed in your code correctly or get a new code";
+		exit();
+	}
+
+	$stmt = $con->prepare('SELECT id, email FROM student_login WHERE password=? AND expiration_time < ?');
+	$time = time();
+	$stmt->bind_param('si',$code,$time);
+	$stmt->execute();
+	$stmt->store_result();
+	if($stmt->num_rows == 0){
+		echo "Your access code has expired. Please get a new code.";
+		exit();
+	}
+	$stmt->bind_result($id,$email);
+	echo $email;
+	exit();
+}
+
 ?>
   <hr>
 
