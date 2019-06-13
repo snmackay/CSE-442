@@ -26,7 +26,7 @@ hr {
 </style>
 
 <!-- Header -->
-<header id="header" class="w3-container w3-theme w3-padding">
+<header id="header" class="w3-container w3-center w3-theme w3-padding">
     <div id="headerContentName"  <font color="black"> <h1> UBCSE Peer Evaluation </h1> </font> </div>
 </header>
 
@@ -42,9 +42,9 @@ hr {
     <div id="loginEmailEntry" class="w3-section">
       <input placeholder="ubitname@buffalo.edu" name ='loginEmailEntryText' id="loginEmailEntryText" class="w3-input w3-light-grey" type="email" pattern="^[a-zA-Z0-9]+@buffalo.edu$" required>
       <hr>
-      <input type='submit' id="loginEmailEntryButton" class="w3-center w3-button w3-theme" value='Get Verification Code'></input>
+      <input type='submit' id="loginEmailEntryButton" class="w3-center w3-button w3-theme-dark" value='Get Verification Code'></input>
       <hr>
-      <input type='button' onclick="window.location.href = 'accessCodePage.php';" class="w3-center w3-button w3-theme" value="Already have valid code?"/></input>
+      <input type='button' onclick="window.location.href = 'accessCodePage.php';" class="w3-center w3-button w3-theme-dark" value="Already have valid code?"/></input>
       <hr>
     </div>
   </form>

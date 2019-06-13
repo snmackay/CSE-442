@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-red.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
 <body>
 
@@ -17,7 +17,7 @@
 <div id="continue" class="w3-row-padding w3-center w3-padding">
 
 
-      <input type='button' onclick="window.location.href = 'accessCodePage.php';" class="w3-center w3-button w3-theme" value="Continue"/></input>
+      <input type='button' onclick="window.location.href = 'accessCodePage.php';" class="w3-center w3-button w3-theme-dark" value="Continue"/></input>
     </div>
 
 
