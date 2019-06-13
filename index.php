@@ -18,6 +18,11 @@
   background-color: #2196F3;
   padding: 10px;
 }
+hr {
+    clear: both;
+    visibility: hidden;
+}
+
 </style>
 
 <!-- Header -->
@@ -27,19 +32,6 @@
 
 
 
-<!--
-<hr>
-<div id="classDrop" class="w3-center">
-  <div id="classDropButton" class="w3-dropdown-hover">
-    <button class="w3-button w3-theme">Select Your Class <i class="fa fa-caret-down"></i></button>
-    <div id="classDropButtonSelector" class="w3-dropdown-content w3-bar-block w3-border">
-      <a href="#" class="w3-bar-item w3-button">Link 1</a>
-      <a href="#" class="w3-bar-item w3-button">Link 2</a>
-      <a href="#" class="w3-bar-item w3-button">Link 3</a>
-    </div>
-  </div>
-</div>
--->
 
 <hr>
 
@@ -49,28 +41,62 @@
     <h2>Please type in your UB email address! You'll then receive a verification code you can type in further down the page.</h2>
     <div id="loginEmailEntry" class="w3-section">
       <input placeholder="ubitname@buffalo.edu" name ='loginEmailEntryText' id="loginEmailEntryText" class="w3-input w3-light-grey" type="email" pattern="^[a-zA-Z0-9]+@buffalo.edu$" required>
+      <hr>
       <input type='submit' id="loginEmailEntryButton" class="w3-center w3-button w3-theme" value='Get Verification Code'></input>
+      <hr>
+      <input type='button' onclick="window.location.href = 'accessCodePage.php';" class="w3-center w3-button w3-theme" value="Already have valid code?"/></input>
+      <hr>
     </div>
   </form>
+<?php
+//error logging
+error_reporting(-1); // reports all errors
+ini_set("display_errors", "1"); // shows all errors
+ini_set("log_errors", 1);
+ini_set("error_log", "~/php-error.log");
 
-  <?php
-if( isset($_POST['loginEmailEntryText']) && !empty($_POST['loginEmailEntryText'])){
-	$email = $_POST['loginEmailEntryText'];
-	mail($email,"Access Code","Your code is: 4567890","FROM: jeh24@buffalo.edu");
+
+require "lib/random.php";
+//login to sql
+session_start();
+//Change this to your connection info.
+$DATABASE_HOST = 'tethys.cse.buffalo.edu';
+$DATABASE_USER = 'jeh24';
+$DATABASE_PASS = '50172309';
+$DATABASE_NAME = 'cse442_542_2019_summer_teame_db';
+ // Try and connect using the info above.
+$con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+if ( mysqli_connect_errno() ) {
+        // If there is an error with the connection, stop the script and display the error.
+        die ('Failed to connect to MySQL: ' . mysqli_connect_error());
+ }
+if(isset($_POST['loginEmailEntryText']) && !empty($_POST['loginEmailEntryText']) ){
+    $email = $_POST['loginEmailEntryText'];
+    $expiration_time = time()+ 60 * 15;
+    //update passcode and timestamp
+    $stmt = $con->prepare('UPDATE student_login SET expiration_time =? WHERE email=?');
+    $stmt->bind_param('is', $expiration_time, $email);
+    $stmt->execute();
+    if($stmt->affected_rows == 0){
+      $stmt = $con->prepare('INSERT INTO student_login (email,expiration_time) VALUES(?,?)');
+      $stmt->bind_param('si', $email, $expiration_time);
+      $stmt->execute();
+    }
+    $codeFree = false;
+    //if password is taken try until it's not taken
+    while(!$codeFree){
+      $code = random_string(10);
+      $stmt = $con->prepare('UPDATE student_login SET password =? WHERE email=?');
+      $stmt->bind_param('ss', $code, $email);
+      $codeFree = $stmt->execute();
+    }
+  mail($email,"Access Code", "Your code is: " .$code);
+        header("Location: emailConfirmation.php"); /* Redirect browser to a test link*/
+  exit();
 }
 ?>
   <hr>
 
-<!--
-  <form id="loginCode" class="w3-container w3-card-4 w3-light-blue">
-    <h2>Enter your verification code below, then click submit to see the peer evaluation form.</h2>
-    <div id=loginCodeEntry class="w3-section">
-      <input id="loginCodeEntryText" class="w3-input w3-light-grey" type="text" required>
-      <button id="loginCodeEntryButton" class="w3-center w3-button w3-theme">Submit!</button>
-    </div>
-  </form>
-
--->
 
 </div>
 
