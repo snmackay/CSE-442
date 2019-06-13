@@ -71,7 +71,7 @@ if(isset($_POST['accessCodeEntryText']) && !empty($_POST['accessCodeEntryText'])
 	$stmt->store_result();
 	if($stmt->num_rows == 0){
     echo '<script language="javascript">';
-    echo 'alert("Check that you have typed your code correctly, or get a new code.")';
+    echo 'alert("Code not found! Please check that you have typed the code correctly, or get a new one.")';
     echo '</script>';
 		$stmt->close();
 		exit();
