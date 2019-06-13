@@ -90,7 +90,7 @@ if(isset($_POST['loginEmailEntryText']) && !empty($_POST['loginEmailEntryText'])
       $stmt->bind_param('ss', $code, $email);
       $codeFree = $stmt->execute();
     }
-  mail($email,"Access Code", "Your code is: " .$code."/r/n
+  mail($email,"Access Code", "Your code is: " .$code." <br/>
        Visit <a href=https://www-student.cse.buffalo.edu/CSE442-542/2019-Summer/cse-442e/accessCodePage.php>this link</a> to use it.", 'Content-type: text/html; charset=utf-8');
       header("Location: emailConfirmation.php"); /* Redirect browser to a test link*/
   exit();
