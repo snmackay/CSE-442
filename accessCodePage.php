@@ -70,7 +70,9 @@ if(isset($_POST['accessCodeEntryText']) && !empty($_POST['accessCodeEntryText'])
 	$stmt->execute();
 	$stmt->store_result();
 	if($stmt->num_rows == 0){
-		echo "Check that you have typed in your code correctly or get a new code";
+    echo '<script language="javascript">';
+    echo 'alert("Code not found! Please check that you have typed the code correctly, or get a new one.")';
+    echo '</script>';
 		$stmt->close();
 		exit();
 	}
@@ -81,7 +83,9 @@ if(isset($_POST['accessCodeEntryText']) && !empty($_POST['accessCodeEntryText'])
 	$stmt->execute();
 	$stmt->store_result();
 	if($stmt->num_rows == 0){
-		echo "Your access code has expired. Please get a new code.";
+    echo '<script language="javascript">';
+    echo 'alert("Your access code has expired, please get a new code.")';
+    echo '</script>';
 		$stmt->close();
 		exit();
 	}
