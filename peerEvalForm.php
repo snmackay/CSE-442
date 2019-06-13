@@ -10,24 +10,35 @@
 
 
 <style>
-.grid-container {
-  display: grid;
-  grid-column-start: 1;
-  grid-column-end: 3;
-  grid-template-columns: auto auto auto;
-  background-color: #2196F3;
-  padding: 10px;
-}
 hr {
     clear: both;
     visibility: hidden;
+}
+
+input[type=radio]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(2); /* IE */
+  -moz-transform: scale(2); /* FF */
+  -webkit-transform: scale(2); /* Safari and Chrome */
+  -o-transform: scale(2); /* Opera */
+  transform: scale(2);
+  padding: 10px;
+
+}
+
+.checkboxtext
+{
+  /* Checkbox text */
+  font-size: 160%;
+  display: inline;
 }
 
 </style>
 
 <!-- Header -->
 <header id="header" class="w3-container w3-theme w3-padding">
-    <div id="headerContentName"  <font color="black"> <h1> UBCSE Peer Evaluation </h1> </font> </div>
+    <div id="headerContentName"  <font color="black"> <h1> Peer Evaluation Form </h1> </font> </div>
 </header>
 
 
@@ -35,66 +46,66 @@ hr {
 
 <hr>
 
-<div id="login" class="w3-row-padding w3-center w3-padding">
+<div id="login" class="w3-row-padding w3-padding">
 
-  <form id="loginEmail" class="w3-container w3-card-4 w3-light-blue" method='post'>
-    <h2>Please type in your UB email address! You'll then receive a verification code you can type in further down the page.</h2>
-    <div id="loginEmailEntry" class="w3-section">
-      <input placeholder="ubitname@buffalo.edu" name ='loginEmailEntryText' id="loginEmailEntryText" class="w3-input w3-light-grey" type="email" pattern="^[a-zA-Z0-9]+@buffalo.edu$" required>
-      <hr>
-      <input type='submit' id="loginEmailEntryButton" class="w3-center w3-button w3-theme" value='Get Verification Code'></input>
-      <hr>
-      <input type='button' onclick="window.location.href = 'accessCodePage.php';" class="w3-center w3-button w3-theme" value="Already have valid code?"/></input>
-      <hr>
-    </div>
+  <form id="peerEval" class="w3-container w3-card-4 w3-light-blue" method='post'>
+    <h1>You will fill out an evaluation form for yourself and each of your team mates. </h1>
+    <hr>
+    <h1>Current person you're evaluating: ___________________ </h1>
+    <hr>
+    <h1>Please select the option for each prompt that best fits for each question.</h1>
+    <hr>
+    <h3>Question 1: Role</h3>
+    <fieldset id="Question1" >
+      <input type="radio"  name="Q1" value="0"><big>'  0 points: Does not willingly assume team roles, rarely completes assigned work.</big><br>
+      <input type="radio"  name="Q1" value="1"><big>'  1 point: Usually accepts assigned team roles, occasionally completes assigned work.</big><br>
+      <input type="radio"  name="Q1" value="2"><big>'  2 points: Accepts assigned team roles, mostly completes assigned work.</big><br>
+      <input type="radio"  name="Q1" value="3"><big>'  3 points: Accepts all assigned team roles, always completes assigned work.</big><br>
+    </fieldset>
+
+    <hr>
+    <h3>Question 2: Leadership</h3>
+    <fieldset id="Question2" >
+      <input type="radio"  name="Q2" value="0"><big>'  0 points: Rarely takes leadership role, does not collaborate, sometimes willing to assist teammates.</big><br>
+      <input type="radio"  name="Q2" value="1"><big>'  1 point: Occasionally shows leadership, mostly collaborates, generally willin to assist teammates.</big><br>
+      <input type="radio"  name="Q2" value="2"><big>'  2 points: Shows an ability to lead when necessary, willing to collaborate, willing to assist teammates.</big><br>
+      <input type="radio"  name="Q2" value="3"><big>'  3 points: Takes leadership role, is a good collaborator, always willing to assist teammates.</big><br>
+    </fieldset>
+
+    <hr>
+    <h3>Question 3: Participation</h3>
+    <fieldset id="Question3" >
+      <input type="radio"  name="Q3" value="0"><big>'  0 points: Often misses meetings, routinely unprepared for meetings, rarely participates in meetings and doesnt share ideas.</big><br>
+      <input type="radio"  name="Q3" value="1"><big>'  1 point: Occasionally misses/ doesn't participate in meetings, somewhat unprepared for meetings, offers unclear/ unhelpful ideas.</big><br>
+      <input type="radio"  name="Q3" value="2"><big>'  2 points: Attends and participates in most meetings, comes prepared, and offers useful ideas.</big><br>
+      <input type="radio"  name="Q3" value="3"><big>'  3 points: Attends and participates in all meetings, comes prepared, and clearly expresses well-developed ideas.</big><br>
+    </fieldset>
+
+    <hr>
+    <h3>Question 4: Professionalism</h3>
+    <fieldset id="Question4" >
+      <input type="radio"  name="Q4" value="0"><big>'  0 points: Often discourteous and/or openly critical of teammates, doesn't want to listen to alternative perspectives.</big><br>
+      <input type="radio"  name="Q4" value="1"><big>'  1 point: Not always considerate or courteous towards teammates, usually appreciates teammates perspectives but often unwilling to consider them.</big><br>
+      <input type="radio"  name="Q4" value="2"><big>'  2 points: Mostly courteous to teammates, values teammates' perspectives and often willing to consider them.</big><br>
+      <input type="radio"  name="Q4" value="3"><big>'  3 points: Always courteous to teammates, values teammates' perspectives, knowledge, and experience, and always willing to consider them.</big><br>
+    </fieldset>
+
+    <hr>
+    <h3>Question 5: Quality</h3>
+    <fieldset id="Question5" >
+      <input type="radio"  name="Q5" value="0"><big>'  0 points: Rarely commits to shared documents, others often required to revise, debug, or fix their work.</big><br>
+      <input type="radio"  name="Q5" value="1"><big>'  1 point: Occasionally commits to shared documents, others sometimes needed to revise, debug, or fix their work.</big><br>
+      <input type="radio"  name="Q5" value="2"><big>'  2 points: Often commits to shared documents, others occasionally needed to revise, debug, or fix their work.</big><br>
+      <input type="radio"  name="Q5" value="3"><big>'  3 points: Frequently commits to shared documents, others rarely need to revise, debug, or fix their work.</big><br>
+    </fieldset>
+
+    <hr>
+    <div id="login" class="w3-row-padding w3-center w3-padding">
+    <input type='submit' id="EvalSubmit" class="w3-center w3-button w3-theme-dark" value='Submit Peer Evaluation'></input>
+  </div>
+    <hr>
   </form>
-<?php
-//error logging
-error_reporting(-1); // reports all errors
-ini_set("display_errors", "1"); // shows all errors
-ini_set("log_errors", 1);
-ini_set("error_log", "~/php-error.log");
-
-
-require "lib/random.php";
-//login to sql
-session_start();
-//Change this to your connection info.
-$DATABASE_HOST = 'tethys.cse.buffalo.edu';
-$DATABASE_USER = 'jeh24';
-$DATABASE_PASS = '50172309';
-$DATABASE_NAME = 'cse442_542_2019_summer_teame_db';
- // Try and connect using the info above.
-$con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
-if ( mysqli_connect_errno() ) {
-        // If there is an error with the connection, stop the script and display the error.
-        die ('Failed to connect to MySQL: ' . mysqli_connect_error());
- }
-if(isset($_POST['loginEmailEntryText']) && !empty($_POST['loginEmailEntryText']) ){
-    $email = $_POST['loginEmailEntryText'];
-    $expiration_time = time()+ 60 * 15;
-    //update passcode and timestamp
-    $stmt = $con->prepare('UPDATE student_login SET expiration_time =? WHERE email=?');
-    $stmt->bind_param('is', $expiration_time, $email);
-    $stmt->execute();
-    if($stmt->affected_rows == 0){
-      $stmt = $con->prepare('INSERT INTO student_login (email,expiration_time) VALUES(?,?)');
-      $stmt->bind_param('si', $email, $expiration_time);
-      $stmt->execute();
-    }
-    $codeFree = false;
-    //if password is taken try until it's not taken
-    while(!$codeFree){
-      $code = random_string(10);
-      $stmt = $con->prepare('UPDATE student_login SET password =? WHERE email=?');
-      $stmt->bind_param('ss', $code, $email);
-      $codeFree = $stmt->execute();
-    }
-  mail($email,"Access Code", "Your code is: " .$code);
-        header("Location: emailConfirmation.php"); /* Redirect browser to a test link*/
-  exit();
-}
-?>
+    </div>
   <hr>
 
 
