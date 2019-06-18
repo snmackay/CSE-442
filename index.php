@@ -90,8 +90,15 @@ if(isset($_POST['loginEmailEntryText']) && !empty($_POST['loginEmailEntryText'])
       $stmt->bind_param('ss', $code, $email);
       $codeFree = $stmt->execute();
     }
-  mail($email,"Access Code", "Your code is: " .$code." <br/>
-       Visit this link to use it: https://www-student.cse.buffalo.edu/CSE442-542/2019-Summer/cse-442e/accessCodePage.php", 'Content-type: text/html; charset=utf-8');
+    $date = new DateTime("@$expiration_time");
+    $date->setTimezone(new DateTimeZone('America/New_York'));
+    $humanExpTime = $date->format('h:i a');
+    //be careful the email text is whitespace sensitive
+  mail($email,"Access Code", "<h1>Your code is: ".$code."</h1>
+        <p>It will expire at ".$humanExpTime." EST</p>
+        </hr>
+        Use it here: https://www-student.cse.buffalo.edu/CSE442-542/2019-Summer/cse-442e/accessCodePage.php",
+        'Content-type: text/html; charset=utf-8');
       header("Location: emailConfirmation.php"); /* Redirect browser to a test link*/
   exit();
 }
