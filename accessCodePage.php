@@ -92,7 +92,7 @@ if(isset($_POST['accessCodeEntryText']) && !empty($_POST['accessCodeEntryText'])
 	$_SESSION['email'] = $email;
 	$_SESSION['id'] = $id;
 	$stmt->close();
-	header("Location: loginLandingDemo.php");
+	header("Location: peerEvalForm.php");
 	exit();
 }
 
