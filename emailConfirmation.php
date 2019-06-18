@@ -16,8 +16,8 @@
 
 <div id="continue" class="w3-row-padding w3-center w3-padding">
 
-
       <input type='button' onclick="window.location.href = 'accessCodePage.php';" class="w3-center w3-button w3-theme-dark" value="Continue"/></input>
+      <p><a href = "https://ubmail.buffalo.edu" target = "_blank">Visit UBMail</a></p>
     </div>
 
 
