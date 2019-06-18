@@ -18,6 +18,7 @@
 
 
       <input type='button' onclick="window.location.href = 'accessCodePage.php';" class="w3-center w3-button w3-theme" value="Continue"/></input>
+      <p><a href = "https://ubmail.buffalo.edu" target = "_blank">Visit UBMail</a></p>
     </div>
 
 
