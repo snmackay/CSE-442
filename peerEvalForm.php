@@ -33,7 +33,7 @@ if ( mysqli_connect_errno() ) {
 	$stmt->bind_result($group_number);
 	$stmt->store_result();
 	$stmt->fetch();
-
+	
 	if($stmt->num_rows == 0){ //If student is not in selected class display an error.
 	//TODO: make an error here
 		exit();
@@ -53,19 +53,40 @@ if ( mysqli_connect_errno() ) {
 		$_SESSION['group_member_number'] = 0;
 	}
 	$current_group_member =  $group_members[$_SESSION['group_member_number']];
-	//$group_members = $stmt->fetch();
-
+	
+	//When submit button is pressed
 	if ( !empty($_POST) ) {
-
+		$current_student_feedback_string = "";
+		if($_SESSION['group_member_number'] != 0){
+			$current_student_feedback_string = ":";
+		}
+		
+		$current_student_feedback_string = $current_student_feedback_string . $current_group_member . "," . strval($_POST['Q1']) . "," . strval($_POST['Q2']) . "," . strval($_POST['Q3'])
+		 . "," . strval($_POST['Q4']) . "," . strval($_POST['Q5']);
+		 
+		 
+		 echo $current_student_feedback_string;
+		if(!isset($_SESSION['feedback_string'])){
+			$_SESSION['feedback_string'] = $current_student_feedback_string;
+		}
+		else{
+			$_SESSION['feedback_string'] = $_SESSION['feedback_string'] . $current_student_feedback_string;
+		}
+		
+		
 		//move to next student in group
 		if($_SESSION['group_member_number'] < ($num_of_group_members - 1)){
 			$_SESSION['group_member_number'] +=1;
 			     header("Location: peerEvalForm.php"); /* Redirect browser to a test link*/
 		}
 		else{
+			$stmt = $con->prepare('UPDATE cse442 SET submitted_scores = ? WHERE email=?');
+			$stmt->bind_param('ss',$_SESSION['feedback_string'], $email);
+			$stmt->execute();
+			
 			//TODO: Redirect to page confirming submission.
 		}
-	}
+	}	
 ?>
 <html>
 <title>UB CSE Peer Evaluation</title>
@@ -169,11 +190,7 @@ input[type=radio]
 
     <hr>
     <div id="login" class="w3-row-padding w3-center w3-padding">
-    <input type='submit' id="EvalSubmit" class="w3-center w3-button w3-theme-dark" value=<?php if ($_SESSION['group_member_number']<($num_of_group_members-1)): ?>
-                                                                                           "Continue"
-                                                                                         <?php else: ?>
-                                                                                           "Submit Peer Evaluation"
-                                                                                         <?php endif; ?>></input>
+    <input type='submit' id="EvalSubmit" class="w3-center w3-button w3-theme-dark" value='Submit Peer Evaluation'></input>
   </div>
     <hr>
   </form>
