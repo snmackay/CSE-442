@@ -33,7 +33,7 @@ if ( mysqli_connect_errno() ) {
 	$stmt->bind_result($group_number);
 	$stmt->store_result();
 	$stmt->fetch();
-	
+
 	if($stmt->num_rows == 0){ //If student is not in selected class display an error.
 	//TODO: make an error here
 		exit();
@@ -54,9 +54,9 @@ if ( mysqli_connect_errno() ) {
 	}
 	$current_group_member =  $group_members[$_SESSION['group_member_number']];
 	//$group_members = $stmt->fetch();
-	
+
 	if ( !empty($_POST) ) {
-		
+
 		//move to next student in group
 		if($_SESSION['group_member_number'] < ($num_of_group_members - 1)){
 			$_SESSION['group_member_number'] +=1;
@@ -65,7 +65,7 @@ if ( mysqli_connect_errno() ) {
 		else{
 			//TODO: Redirect to page confirming submission.
 		}
-	}	
+	}
 ?>
 <html>
 <title>UB CSE Peer Evaluation</title>
@@ -169,7 +169,11 @@ input[type=radio]
 
     <hr>
     <div id="login" class="w3-row-padding w3-center w3-padding">
-    <input type='submit' id="EvalSubmit" class="w3-center w3-button w3-theme-dark" value='Submit Peer Evaluation'></input>
+    <input type='submit' id="EvalSubmit" class="w3-center w3-button w3-theme-dark" value=<?php if ($_SESSION['group_member_number']<($num_of_group_members-1)): ?>
+                                                                                           "Continue"
+                                                                                         <?php else: ?>
+                                                                                           "Submit Peer Evaluation"
+                                                                                         <?php endif; ?>></input>
   </div>
     <hr>
   </form>
