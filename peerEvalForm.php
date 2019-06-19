@@ -33,9 +33,12 @@ if ( mysqli_connect_errno() ) {
 	$stmt->bind_result($group_number);
 	$stmt->store_result();
 	$stmt->fetch();
-	
+
 	if($stmt->num_rows == 0){ //If student is not in selected class display an error.
-	//TODO: make an error here
+    echo '<script language="javascript">';
+    echo 'alert("You aren't enrolled in this class!")';
+    echo '</script>';
+    $stmt->close();
 		exit();
 	}
 	$group_members=array();
