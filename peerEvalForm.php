@@ -33,14 +33,12 @@ if ( mysqli_connect_errno() ) {
 	$stmt->bind_result($group_number);
 	$stmt->store_result();
 	$stmt->fetch();
-
+	
 	if($stmt->num_rows == 0){ //If student is not in selected class display an error.
-    echo '<script language="javascript">';
-    echo 'alert("You aren't enrolled in this class!")';
-    echo '</script>';
-    $stmt->close();
+	//TODO: make an error here
 		exit();
 	}
+	//get group members
 	$group_members=array();
 	$stmt = $con->prepare('SELECT email FROM cse442 WHERE group_number=?');
     $stmt->bind_param('i', $group_number);
@@ -50,8 +48,24 @@ if ( mysqli_connect_errno() ) {
 	while ($stmt->fetch()){
 		array_push($group_members,$group_member);
 	}
-	var_dump( $group_members);
+	$num_of_group_members =  count($group_members);
+	if(!isset($_SESSION['group_member_number'])){
+		$_SESSION['group_member_number'] = 0;
+	}
+	$current_group_member =  $group_members[$_SESSION['group_member_number']];
 	//$group_members = $stmt->fetch();
+	
+	if ( !empty($_POST) ) {
+		
+		//move to next student in group
+		if($_SESSION['group_member_number'] < ($num_of_group_members - 1)){
+			$_SESSION['group_member_number'] +=1;
+			     header("Location: peerEvalForm.php"); /* Redirect browser to a test link*/
+		}
+		else{
+			//TODO: Redirect to page confirming submission.
+		}
+	}	
 ?>
 <html>
 <title>UB CSE Peer Evaluation</title>
@@ -105,7 +119,7 @@ input[type=radio]
   <form id="peerEval" class="w3-container w3-card-4 w3-light-blue" method='post'>
     <h1>You will fill out an evaluation form for yourself and each of your team mates. </h1>
     <hr>
-    <h1>Current person you're evaluating: ___________________ </h1>
+    <h1>Current person you're evaluating: <?php echo $current_group_member?> </h1>
     <hr>
     <h1>Please select the option for each prompt that best fits for each question.</h1>
     <hr>
