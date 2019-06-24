@@ -83,17 +83,17 @@ if ( mysqli_connect_errno() ) {
 			$stmt = $con->prepare('UPDATE cse442 SET submitted_scores = ? WHERE email=?');
 			$stmt->bind_param('ss',$_SESSION['feedback_string'], $email);
 			$stmt->execute();
-			
-			
+
+
 			$indiviual_eval = explode(":",$_SESSION['feedback_string']);
-			
+
 			foreach($indiviual_eval as $indiv){//indiv is each student in the group that recieved feedback
 				$indiv_explode = explode(",",$indiv);
 				$recievers_email = $indiv_explode[0];
 				$indiv_explode[0] = $email;
-				
+
 				$reciever_implode = implode(",",$indiv_explode);//reciever implode now has the evaluaters email.
-				
+
 				//access the recieved scores.
 				$stmt = $con->prepare('SELECT recieved_scores FROM cse442 WHERE email=?');
 				$stmt->bind_param('s', $recievers_email);
@@ -106,7 +106,7 @@ if ( mysqli_connect_errno() ) {
 					$reciever_scores_array = array();
 					foreach($reciever_explode as $exploded){
 						if(strpos($exploded, $email) !== false){
-							array_push($reciever_scores_array ,$reciever_implode); 
+							array_push($reciever_scores_array ,$reciever_implode);
 						}
 						else{
 							array_push($reciever_scores_array , $exploded);
@@ -120,7 +120,7 @@ if ( mysqli_connect_errno() ) {
 
 					if($reciever_scores == ""){
 						$reciever_scores = $reciever_implode;
-						
+
 					}
 					else{
 					$reciever_scores = $reciever_scores . ":" . $reciever_implode;
@@ -129,10 +129,10 @@ if ( mysqli_connect_errno() ) {
 				$stmt = $con->prepare('UPDATE cse442 SET recieved_scores=? WHERE email=?');
 				$stmt->bind_param('ss',$reciever_scores, $recievers_email);
 				$stmt->execute();
-			}	
+			}
 			$_SESSION = array();
 			 header("Location: evalConfirm.php");
-			exit();	
+			exit();
 		}
 	}
 ?>
