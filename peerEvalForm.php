@@ -30,7 +30,7 @@ if ( mysqli_connect_errno() ) {
 	$stmt = $con->prepare('SELECT group_number, submitted_scores FROM cse442 WHERE email=?');
     $stmt->bind_param('s', $email);
     $stmt->execute();
-	$stmt->bind_result($group_number, $_SESSION['old_scores_string']);
+	$stmt->bind_result($group_number, $old_scores_string);
 	$stmt->store_result();
 	$stmt->fetch();
 
@@ -39,8 +39,8 @@ if ( mysqli_connect_errno() ) {
 		exit();
 	}
   //check if grades are already submitted
-  if(!empty($_SESSION['old_scores_string'])) {
-    $old_scores = explode(":", $_SESSION['old_scores_string']);
+  if(!empty($old_scores_string)) {
+    $old_scores = explode(":", $old_scores_string);
   }
 	//get group members
 	$group_members=array();
