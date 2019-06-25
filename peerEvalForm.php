@@ -57,6 +57,14 @@ if ( mysqli_connect_errno() ) {
 		$_SESSION['group_member_number'] = 0;
 	}
 	$current_group_member =  $group_members[$_SESSION['group_member_number']];
+  //fetch name for student to be evaluated
+   $stmt = $con->prepare('SELECT Name FROM cse442 WHERE email=?');
+     $stmt->bind_param('s', $current_group_member);
+     $stmt->execute();
+   $stmt->bind_result($Name);
+   $stmt->store_result();
+   $stmt->fetch();
+
   if(isset($old_scores)) {
     foreach($old_scores as $old) {
       if(strpos($old, $current_group_member) !== false){
@@ -198,7 +206,7 @@ input[type=radio]
   <form id="peerEval" class="w3-container w3-card-4 w3-light-blue" method='post'>
     <h1>You will fill out an evaluation form for yourself and each of your team mates. </h1>
     <hr>
-    <h1>Current person you're evaluating: <?php echo $current_group_member?> </h1>
+    <h1>Current person you're evaluating: <?php echo $Name?> </h1>
     <hr>
     <h1>Please select the option for each prompt that best fits for each question.</h1>
     <hr>
