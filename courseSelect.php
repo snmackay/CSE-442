@@ -1,3 +1,43 @@
+<?php
+error_reporting(-1); // reports all errors
+ini_set("display_errors", "1"); // shows all errors
+ini_set("log_errors", 1);
+session_start();
+if(!isset($_SESSION['id'])) {
+   header("Location: https://www-student.cse.buffalo.edu/CSE442-542/2019-Summer/cse-442e/index.php");
+   exit();
+ }
+$email = $_SESSION['email'];
+$id = $_SESSION['id'];
+$DATABASE_HOST = 'tethys.cse.buffalo.edu';
+$DATABASE_USER = 'jeh24';
+$DATABASE_PASS = '50172309';
+$DATABASE_NAME = 'cse442_542_2019_summer_teame_db';
+ // Try and connect using the info above.
+ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+$con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+if ( mysqli_connect_errno() ) {
+        // If there is an error with the connection, stop the script and display the error.
+        die ('Failed to connect to MySQL: ' . mysqli_connect_error());
+ }
+ $student_classes =array();
+ $stmt = $con->prepare('SELECT course FROM cse442 WHERE email=?');
+ $stmt->bind_param('s', $email);
+ $stmt->execute();
+ $stmt->bind_result($student_class);
+ $stmt->store_result();
+ while ($stmt->fetch()){
+   array_push($student_classes,$student_class);
+ }
+ $_SESSION['student_classes'] = $student_classes;
+
+ if(isset($_POST['courseSelect'])){
+   $_SESSION['course'] = $_POST['courseSelect'];
+
+   header("Location: peerEvalForm.php");
+ }
+ 
+ ?>
 <!DOCTYPE HTML>
 <html>
 <title>UB CSE course select</title>
@@ -64,13 +104,25 @@ hr {
 
 <div id= "dropdown" style="text-align:center;">
 <div class="dropdown w3-theme w3-center ">
-  <button class="dropbtn w3-theme w3-center">Dropdown</button>
+  <!--
+<button class="dropbtn w3-theme w3-center">Dropdown</button>
   <div class="dropdown-content w3-theme w3-center">
-      <a href="#">Class 1 here</a>
-      <a href="#">Class 2 here</a>
-      <a href="#">Class 3 here</a>
+  -->
+  <form id="courseSelect" class="w3-container w3-card-4 w3-light-blue" method='post'>
+    <select name ="courseSelect">
+      <?php
+      if(isset($_SESSION['student_classes'])){
+       foreach ($student_classes as $value) {
+      echo ('<option value="' . $value .'">' . $value .'</option>');
+      }
+    }
+?>
+
   </div>
+
 </div>
+<input type='submit' id="EvalSubmit" class="w3-center w3-button w3-theme-dark" value="Continue"></input>
+</form>
 </div>
 
 </body>
