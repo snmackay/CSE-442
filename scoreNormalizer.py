@@ -24,17 +24,22 @@ def connect():
 
 
 def createCSV(inputDict):
+    Processed=[]
+    for valls in inputDict.values():
+        Processed.append(valls)
     with open("scores.csv", "w") as f:
         writer = csv.writer(f)
         writer.writerow(["Name", "email", "Course", "Group Number", "Normalized Score"])
-        writer.writerows(inputDict)
+        writer.writerows(Processed)
+
 
     print("Data exported to scores.csv")
+
 
 def process():
     mydb=connect()
     mycursor=mydb.cursor()
-    mycursor.execute("Select Name, email, course, group_number, recieved_scores FROM cse442")
+    mycursor.execute("Select Name, email, course , group_number, submitted_scores FROM cse442 WHERE course='CSE112'")
 
     myresult = mycursor.fetchall()
 
@@ -60,34 +65,51 @@ def process():
             #print(b)
         #print(" ")
     print("Data Processed")
-    ProcessedFull=[]
-    student = 0
+    ProcessedFull={}
+    NormScores={}
     for elems2 in rawArr:
         Processed=[]
+        temper=[]
         Processed.append(elems2[0])
         Processed.append(elems2[1])
         Processed.append(elems2[2])
         Processed.append(elems2[3])
+        Processed.append(temper)
+        ProcessedFull[elems2[1]]=Processed
 
-        processedScore=elems2[4].split(":")
 
-        numMems=len(processedScore)
-        maxScore=numMems*15
+        SubmitScore=elems2[4].split(":")
 
-        justNums=[]
-        for b in processedScore:
-            temp=b.split(",")
-            del temp[0]
-            justNums=justNums+temp
+        emails=[]
+        numerators=[]
+        for x in SubmitScore:
+            temp=x.split(",")
+            emails.append(temp[0])
+            del(temp[0])
+            convertToInt=list(map(int,temp))
+            numerators.append(sum(convertToInt))
 
-        justNumsInts=list(map(int,justNums))
-        totalEarned=sum(justNumsInts)
+        denominator=sum(numerators)
 
-        normalizedScore=totalEarned/maxScore
+        if denominator > 0:
 
-        Processed.append(str(normalizedScore))
-        ProcessedFull.append(Processed)
-        student+=1;
+            counter=0
+            for x in numerators:
+                temp=x/denominator
+                if emails[counter] in NormScores:
+                    NormScores[emails[counter]].append(temp)
+                else:
+                    NormScores[emails[counter]]=[]
+                    NormScores[emails[counter]].append(temp)
+                counter+=1
+
+    for key in NormScores.keys():
+        numStudents=len(NormScores[key])
+        temp=0
+        for x in NormScores[key]:
+            temp+=x
+        ProcessedFull[key][4]=temp/numStudents
+
 
     createCSV(ProcessedFull)
 
