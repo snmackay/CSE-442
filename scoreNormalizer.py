@@ -1,4 +1,5 @@
 
+import sys
 import mysql.connector
 import csv
 
@@ -36,10 +37,12 @@ def createCSV(inputDict):
     print("Data exported to scores.csv")
 
 
-def process():
+def process(classSelect):
     mydb=connect()
     mycursor=mydb.cursor()
-    mycursor.execute("Select Name, email, course , group_number, submitted_scores FROM cse442 WHERE course='CSE112'")
+
+
+    mycursor.execute("Select Name, email, course , group_number, submitted_scores FROM cse442 WHERE course= %s",[classSelect])
 
     myresult = mycursor.fetchall()
 
@@ -119,4 +122,6 @@ def process():
 
 
 
-if "__name__==__main__": process()
+if "__name__==__main__":
+    inputer= str(sys.argv[1])
+    process(inputer)
