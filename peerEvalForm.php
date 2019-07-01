@@ -14,6 +14,7 @@ session_start();
   }
 $email = $_SESSION['email'];
 $id = $_SESSION['id'];
+$course = $_SESSION['course'];
 //Change this to your connection info.
 $DATABASE_HOST = 'tethys.cse.buffalo.edu';
 $DATABASE_USER = 'jeh24';
@@ -27,8 +28,10 @@ if ( mysqli_connect_errno() ) {
         die ('Failed to connect to MySQL: ' . mysqli_connect_error());
  }
  //fetch group number for current student
-	$stmt = $con->prepare('SELECT group_number, submitted_scores FROM cse442 WHERE email=?');
-    $stmt->bind_param('s', $email);
+
+	$stmt = $con->prepare('SELECT group_number FROM cse442 WHERE email=? AND course =?');
+    $stmt->bind_param('ss', $email, $course);
+
     $stmt->execute();
 	$stmt->bind_result($group_number, $old_scores_string);
 	$stmt->store_result();
@@ -44,8 +47,8 @@ if ( mysqli_connect_errno() ) {
   }
 	//get group members
 	$group_members=array();
-	$stmt = $con->prepare('SELECT email FROM cse442 WHERE group_number=?');
-    $stmt->bind_param('i', $group_number);
+	$stmt = $con->prepare('SELECT email FROM cse442 WHERE group_number=? AND course =?');
+    $stmt->bind_param('is', $group_number,$course);
     $stmt->execute();
 	$stmt->bind_result($group_member);
 	$stmt->store_result();
@@ -98,8 +101,8 @@ if ( mysqli_connect_errno() ) {
 				 exit();
 		}
 		else{//evaluated all students
-			$stmt = $con->prepare('UPDATE cse442 SET submitted_scores = ? WHERE email=?');
-			$stmt->bind_param('ss',$_SESSION['feedback_string'], $email);
+			$stmt = $con->prepare('UPDATE cse442 SET submitted_scores = ? WHERE email=? AND course=?');
+			$stmt->bind_param('sss',$_SESSION['feedback_string'], $email,$course);
 			$stmt->execute();
 
 
@@ -113,8 +116,8 @@ if ( mysqli_connect_errno() ) {
 				$reciever_implode = implode(",",$indiv_explode);//reciever implode now has the evaluaters email.
 
 				//access the recieved scores.
-				$stmt = $con->prepare('SELECT recieved_scores FROM cse442 WHERE email=?');
-				$stmt->bind_param('s', $recievers_email);
+				$stmt = $con->prepare('SELECT recieved_scores FROM cse442 WHERE email=? AND course=?');
+				$stmt->bind_param('ss', $recievers_email,$course);
 				$stmt->execute();
 				$stmt->bind_result($reciever_scores);
 				$stmt->store_result();
@@ -144,8 +147,8 @@ if ( mysqli_connect_errno() ) {
 					$reciever_scores = $reciever_scores . ":" . $reciever_implode;
 					}
 				}
-				$stmt = $con->prepare('UPDATE cse442 SET recieved_scores=? WHERE email=?');
-				$stmt->bind_param('ss',$reciever_scores, $recievers_email);
+				$stmt = $con->prepare('UPDATE cse442 SET recieved_scores=? WHERE email=? AND course=?');
+				$stmt->bind_param('sss',$reciever_scores, $recievers_email,$course);
 				$stmt->execute();
 			}
 			$_SESSION = array();
@@ -193,7 +196,7 @@ input[type=radio]
 
 <!-- Header -->
 <header id="header" class="w3-container w3-theme w3-padding">
-    <div id="headerContentName"  <font color="black"> <h1> Peer Evaluation Form </h1> </font> </div>
+  <div id="headerContentName"  <font color="black"> <h1><?php echo $_SESSION['course'];?> Peer Evaluation Form </h1> </font> </div>
 </header>
 
 
