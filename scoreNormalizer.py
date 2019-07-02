@@ -30,11 +30,9 @@ def createCSV(inputDict):
         Processed.append(valls)
     with open("scores.csv", "w") as f:
         writer = csv.writer(f)
-<<<<<<< HEAD
+
         writer.writerow(["Name", "email", "Course", "Group Number", "Points Percentage", "Score"])
-=======
-        writer.writerow(["Name", "email", "Course", "Group Number", "Normalized Score"])
->>>>>>> 57a3cf0ae95d844ada98baa705d30ceb900742a0
+
         writer.writerows(Processed)
 
 
@@ -77,19 +75,13 @@ def process(classSelect):
     for elems2 in rawArr:
         Processed=[]
         temper=[]
-<<<<<<< HEAD
         temper2=[]
-=======
->>>>>>> 57a3cf0ae95d844ada98baa705d30ceb900742a0
         Processed.append(elems2[0])
         Processed.append(elems2[1])
         Processed.append(elems2[2])
         Processed.append(elems2[3])
         Processed.append(temper)
-<<<<<<< HEAD
         Processed.append(temper2)
-=======
->>>>>>> 57a3cf0ae95d844ada98baa705d30ceb900742a0
         ProcessedFull[elems2[1]]=Processed
 
 
@@ -124,10 +116,7 @@ def process(classSelect):
         for x in NormScores[key]:
             temp+=x
         ProcessedFull[key][4]=temp/numStudents
-<<<<<<< HEAD
         ProcessedFull[key][5]=temp
-=======
->>>>>>> 57a3cf0ae95d844ada98baa705d30ceb900742a0
 
 
     createCSV(ProcessedFull)
