@@ -6,7 +6,6 @@ error_reporting(-1); // reports all errors
 ini_set("display_errors", "1"); // shows all errors
 ini_set("log_errors", 1);
 ini_set("error_log", "~/php-error.log");
-
 session_start();
  if(!isset($_SESSION['id'])) {
     header("Location: https://www-student.cse.buffalo.edu/CSE442-542/2019-Summer/cse-442e/index.php");
@@ -28,15 +27,13 @@ if ( mysqli_connect_errno() ) {
         die ('Failed to connect to MySQL: ' . mysqli_connect_error());
  }
  //fetch group number for current student
-
-	$stmt = $con->prepare('SELECT group_number FROM cse442 WHERE email=? AND course =?');
+	$stmt = $con->prepare('SELECT group_number,submitted_scores FROM cse442 WHERE email=? AND course =?');
     $stmt->bind_param('ss', $email, $course);
-
     $stmt->execute();
 	$stmt->bind_result($group_number, $old_scores_string);
 	$stmt->store_result();
 	$stmt->fetch();
-
+	
 	if($stmt->num_rows == 0){ //If student is not in selected class display an error.
 	//TODO: make an error here
 		exit();
@@ -67,7 +64,6 @@ if ( mysqli_connect_errno() ) {
    $stmt->bind_result($Name);
    $stmt->store_result();
    $stmt->fetch();
-
   if(isset($old_scores)) {
     foreach($old_scores as $old) {
       if(strpos($old, $current_group_member) !== false){
@@ -81,19 +77,14 @@ if ( mysqli_connect_errno() ) {
 		if($_SESSION['group_member_number'] != 0){
 			$current_student_feedback_string = ":";
 		}
-
 		$current_student_feedback_string = $current_student_feedback_string . $current_group_member . "," . strval($_POST['Q1']) . "," . strval($_POST['Q2']) . "," . strval($_POST['Q3'])
 		 . "," . strval($_POST['Q4']) . "," . strval($_POST['Q5']);
-
-
 		if(!isset($_SESSION['feedback_string'])){
 			$_SESSION['feedback_string'] = $current_student_feedback_string;
 		}
 		else{
 			$_SESSION['feedback_string'] = $_SESSION['feedback_string'] . $current_student_feedback_string;
 		}
-
-
 		//move to next student in group
 		if($_SESSION['group_member_number'] < ($num_of_group_members - 1)){
 			$_SESSION['group_member_number'] +=1;
@@ -104,17 +95,12 @@ if ( mysqli_connect_errno() ) {
 			$stmt = $con->prepare('UPDATE cse442 SET submitted_scores = ? WHERE email=? AND course=?');
 			$stmt->bind_param('sss',$_SESSION['feedback_string'], $email,$course);
 			$stmt->execute();
-
-
 			$indiviual_eval = explode(":",$_SESSION['feedback_string']);
-
 			foreach($indiviual_eval as $indiv){//indiv is each student in the group that recieved feedback
 				$indiv_explode = explode(",",$indiv);
 				$recievers_email = $indiv_explode[0];
 				$indiv_explode[0] = $email;
-
 				$reciever_implode = implode(",",$indiv_explode);//reciever implode now has the evaluaters email.
-
 				//access the recieved scores.
 				$stmt = $con->prepare('SELECT recieved_scores FROM cse442 WHERE email=? AND course=?');
 				$stmt->bind_param('ss', $recievers_email,$course);
@@ -138,10 +124,8 @@ if ( mysqli_connect_errno() ) {
 					//echo $reciever_scores;
 				}
 				else{
-
 					if($reciever_scores == ""){
 						$reciever_scores = $reciever_implode;
-
 					}
 					else{
 					$reciever_scores = $reciever_scores . ":" . $reciever_implode;
@@ -172,7 +156,6 @@ hr {
     clear: both;
     visibility: hidden;
 }
-
 input[type=radio]
 {
   /* Double-sized Checkboxes */
@@ -182,16 +165,13 @@ input[type=radio]
   -o-transform: scale(2); /* Opera */
   transform: scale(2);
   padding: 10px;
-
 }
-
 .checkboxtext
 {
   /* Checkbox text */
   font-size: 160%;
   display: inline;
 }
-
 </style>
 
 <!-- Header -->
@@ -277,7 +257,7 @@ input[type=radio]
 <footer id="footer" class="w3-container w3-theme-dark w3-padding-16">
   <h3>Acknowledgements</h3>
   <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
-  <p> <a  class=" w3-theme-light" target="_blank"></a></p>
+  <p> <a  class=" w3-theme-light" target="_blank"></a></p>
 </footer>
 
 </body>
